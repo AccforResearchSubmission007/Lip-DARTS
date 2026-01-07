@@ -36,9 +36,32 @@ python fast_search.py --weights [PRETRAINED_WEIGHTS].pt
 ```
 
 3. Architecture Evaluation (Retraining)
-Train the 10 candidate genotypes on CIFAR-10 to identify the top-1 performers.
+We first evaluate the 5 candidates on CIFAR-10 to identify the best-performing genotype.
 ```bash
-python train.py --arch [top-1 genotype]  --cutout --auxiliary 
+python train.py --arch [candidate genotypes] --cutout --auxiliary 
+```
+Then, we retrain this optimal genotype across multiple datasets to report the accuracy range (mean ± std).
+
+A. CIFAR-10 Retraining (5 independent runs)
+```bash
+python train.py --arch [BEST_GENOTYPE] --cutout --auxiliary 
+```
+
+B. CIFAR-100 Transferability (5 independent runs)
+```bash
+python train_cifar100.py --arch [BEST_GENOTYPE] --cutout --auxiliary 
+```
+
+C. ImageNet-10 Transferability 
+```bash
+python train_imagenet.py --arch [BEST_GENOTYPE] 
+```
+
+## Ablation Study
+To verify the impact of bi-level coupling on performance collapse, run the supernet training without fixed alphas (reintroducing the architecture parameters $\alpha$):
+
+```bash
+python train_search.py  --cutout 
 ```
 
 ## Core Results
