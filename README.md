@@ -10,6 +10,7 @@ Lip-DARTS introduces a decoupled search strategy to resolve the instability and 
 The following dependencies are required to run the code. You can install them via:
 ```bash
 pip install -r requirements.txt
+```
 
 Key packages from our environment:
 
@@ -24,17 +25,21 @@ numpy==1.23.5
 1. Supernet Weight Pre-training
 First, train the Lipschitz-regularized supernet on CIFAR-10 to obtain stable weights.
 
+```bash
 python train_search.py  --cutout --fixed_alphas
+```
 
 2. Decoupled Architecture Search (Fast Search)
 After pre-training, use the Path-Gradient Integral and SA to find optimal genotypes. This step is extremely efficient (0.04 GPU days). We recommend running this 5 times to obtain 5 candidate genotypes (geno1~5).
-
+```bash
 python fast_search.py --weights [PRETRAINED_WEIGHTS].pt  
+```
 
 3. Architecture Evaluation (Retraining)
 Train the 10 candidate genotypes on CIFAR-10 to identify the top-1 performers.
-
+```bash
 python train.py --arch [top-1 genotype]  --cutout --auxiliary 
+```
 
 ## Core Results
 Efficiency: Marginal search cost is only 0.04 GPU days.
