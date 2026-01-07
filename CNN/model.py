@@ -111,7 +111,7 @@ class NetworkCIFAR(nn.Module):
         super(NetworkCIFAR, self).__init__()
         self._layers = layers
         self._auxiliary = auxiliary
-        self.drop_path_prob = 0.0  # 添加drop_path_prob属性
+        self.drop_path_prob = 0.0 
 
         stem_multiplier = 3
         C_curr = stem_multiplier * C
@@ -160,7 +160,7 @@ class NetworkImageNet(nn.Module):
         super(NetworkImageNet, self).__init__()
         self._layers = layers
         self._auxiliary = auxiliary
-        self.drop_path_prob = 0.0  # 添加drop_path_prob属性
+        self.drop_path_prob = 0.0 
 
         self.stem0 = nn.Sequential(
             nn.Conv2d(3, C // 2, kernel_size=3, stride=2, padding=1, bias=False),
