@@ -36,10 +36,8 @@ class Architect(object):
 
   def step(self, input_train, target_train, input_valid, target_valid, eta, network_optimizer, unrolled):
     if self.fixed_alphas:
-      # 如果alpha固定，只更新网络权重
       return
     else:
-      # 原始的双层优化
       self.optimizer.zero_grad()
       if unrolled:
         self._backward_step_unrolled(input_train, target_train, input_valid, target_valid, eta, network_optimizer)
